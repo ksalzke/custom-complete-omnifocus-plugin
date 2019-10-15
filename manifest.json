@@ -1,0 +1,16 @@
+{
+  "defaultLocale": "en",
+  "identifier": "com.KaitlinSalzke.customComplete",
+  "author": "Kaitlin Salzke",
+  "description": "A custom complete action for OmniFocus",
+  "version": "1.0.0",
+  "actions": [
+    {
+      "identifier": "customComplete"
+    }
+  ],
+  "libraries": [
+    { "identifier": "customCompleteConfig" },
+    { "identifier": "customCompleteLib" }
+  ]
+}
