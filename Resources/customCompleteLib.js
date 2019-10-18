@@ -35,11 +35,14 @@ var _ = (function() {
         "There are no further actions in this project. Do you want to review it now?"
       );
       alert.addOption("Yes");
+      alert.addOption("Mark Complete");
       alert.addOption("No");
       alert.show(result => {
         if (result == 0) {
           urlStr = "omnifocus:///task/" + task.containingProject.id.primaryKey;
           URL.fromString(urlStr).call(() => {});
+        } else if (result == 1) {
+          task.containingProject.task.markComplete();
         }
       });
     }
