@@ -1,7 +1,7 @@
-var _ = (function() {
+(() => {
   var customCompleteLib = new PlugIn.Library(new Version("1.0"));
 
-  customCompleteLib.customComplete = task => {
+  customCompleteLib.customComplete = (task) => {
     additionalFunctions = PlugIn.find("com.KaitlinSalzke.customComplete")
       .library("customCompleteConfig")
       .additionalFunctions();
@@ -37,7 +37,7 @@ var _ = (function() {
       alert.addOption("Yes");
       alert.addOption("Mark Complete");
       alert.addOption("No");
-      alert.show(result => {
+      alert.show((result) => {
         if (result == 0) {
           urlStr = "omnifocus:///task/" + task.containingProject.id.primaryKey;
           URL.fromString(urlStr).call(() => {});
@@ -48,11 +48,10 @@ var _ = (function() {
     }
 
     // run any other actions desired
-    additionalFunctions.forEach(function(func) {
+    additionalFunctions.forEach(function (func) {
       func(task);
     });
   };
 
   return customCompleteLib;
 })();
-_;
