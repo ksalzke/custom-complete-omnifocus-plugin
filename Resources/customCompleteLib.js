@@ -2,9 +2,9 @@
   var customCompleteLib = new PlugIn.Library(new Version("1.0"));
 
   customCompleteLib.customComplete = (task) => {
-    additionalFunctions = PlugIn.find("com.KaitlinSalzke.customComplete")
-      .library("customCompleteConfig")
-      .additionalFunctions();
+    config = PlugIn.find("com.KaitlinSalzke.customComplete").library(
+      "customCompleteConfig"
+    );
 
     functionLibrary = PlugIn.find("com.KaitlinSalzke.functionLibrary").library(
       "functionLibrary"
@@ -25,6 +25,9 @@
     if (delegationPlugin !== null) {
       delegationPlugin.library("delegationLib").noteFollowUp(task);
     }
+
+    // remove unwanted tags
+    task.removeTags(config.tagsToRemove());
 
     // if no remaining tasks in project
     if (
@@ -51,7 +54,7 @@
     }
 
     // run any other actions desired
-    additionalFunctions.forEach(function (func) {
+    config.additionalFunctions().forEach(function (func) {
       func(task);
     });
   };
