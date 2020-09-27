@@ -12,10 +12,13 @@
 
     task.markComplete();
 
-    // run 'complete prerequisite' action to check task and ancestors
-    PlugIn.find("com.KaitlinSalzke.DependencyForOmniFocus")
-      .library("dependencyLibrary")
-      .checkDependantsForTaskAndAncestors(task);
+    // run 'complete prerequisite' action to check task and ancestors (if 'dependency' plugin installed)
+    dependencyPlugin = PlugIn.find("com.KaitlinSalzke.DependencyForOmniFocus");
+    if (dependencyPlugin !== null) {
+      dependencyPlugin
+        .library("dependencyLibrary")
+        .checkDependantsForTaskAndAncestors(task);
+    }
 
     // note details of follow-up if this is a follow up task (if 'delegation' plugin installed)
     delegationPlugin = PlugIn.find("com.KaitlinSalzke.Delegation");
