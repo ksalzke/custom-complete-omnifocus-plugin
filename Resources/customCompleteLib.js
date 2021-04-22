@@ -12,6 +12,11 @@
 
     task.markComplete();
 
+    // run any other actions desired
+    config.additionalFunctions().forEach(function (func) {
+      func(task);
+    });
+
     // run 'complete prerequisite' action to check task and ancestors (if 'dependency' plugin installed)
     dependencyPlugin = PlugIn.find("com.KaitlinSalzke.DependencyForOmniFocus");
     if (dependencyPlugin !== null) {
@@ -52,11 +57,6 @@
         }
       });
     }
-
-    // run any other actions desired
-    config.additionalFunctions().forEach(function (func) {
-      func(task);
-    });
   };
 
   return customCompleteLib;
