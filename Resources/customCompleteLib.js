@@ -2,7 +2,7 @@
 (() => {
   const customCompleteLib = new PlugIn.Library(new Version('1.0'))
 
-  customCompleteLib.customComplete = (task, functions) => functions.forEach(func => func(task))
+  customCompleteLib.customComplete = (task, functions) => functions.forEach(async func => await func(task))
 
   customCompleteLib.completeTask = task => task.markComplete()
 
@@ -31,7 +31,7 @@
     task.removeTags(config.tagsToRemove())
   }
 
-  customCompleteLib.promptIfStalled = task => {
+  customCompleteLib.promptIfStalled = async task => {
     const functionLibrary = PlugIn.find('com.KaitlinSalzke.functionLibrary').library(
       'functionLibrary'
     )
@@ -50,7 +50,7 @@
       alert.addOption('Yes')
       alert.addOption('Mark Complete')
       alert.addOption('No')
-      alert.show((result) => {
+      await alert.show((result) => {
         if (result === 0) {
           const urlStr = 'omnifocus:///task/' + task.containingProject.id.primaryKey
           URL.fromString(urlStr).call(() => {})
