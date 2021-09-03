@@ -3,7 +3,14 @@
   const action = new PlugIn.Action(function (selection, sender) {
     const task = selection.tasks[0] || selection.projects[0].task
 
-    this.customCompleteLib.customComplete(task)
+    const lib = this.customCompleteLib
+
+    lib.customComplete(task,
+      [lib.completeTask,
+        lib.checkDependants,
+        lib.noteFollowUp,
+        lib.removeUnwantedTags,
+        lib.promptIfStalled])
   })
 
   action.validate = function (selection, sender) {

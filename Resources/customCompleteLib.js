@@ -2,22 +2,11 @@
 (() => {
   const customCompleteLib = new PlugIn.Library(new Version('1.0'))
 
-  customCompleteLib.customComplete = (task) => {
-    const config = PlugIn.find('com.KaitlinSalzke.customComplete').library(
-      'customCompleteConfig'
-    )
+  customCompleteLib.customComplete = (task, functions) => functions.forEach(func => func(task))
 
-    const functionLibrary = PlugIn.find('com.KaitlinSalzke.functionLibrary').library(
-      'functionLibrary'
-    )
+  customCompleteLib.completeTask = task => task.markComplete()
 
-    task.markComplete()
-
-    // run any other actions desired
-    config.additionalFunctions().forEach(function (func) {
-      func(task)
-    })
-
+  customCompleteLib.checkDependants = task => {
     // run 'complete prerequisite' action to check task and ancestors (if 'dependency' plugin installed)
     const dependencyPlugin = PlugIn.find('com.KaitlinSalzke.DependencyForOmniFocus')
     if (dependencyPlugin !== null) {
@@ -25,15 +14,27 @@
         .library('dependencyLibrary')
         .checkDependantsForTaskAndAncestors(task)
     }
+  }
 
-    // note details of follow-up if this is a follow up task (if 'delegation' plugin installed)
+  customCompleteLib.noteFollowUp = task => {
+  // note details of follow-up if this is a follow up task (if 'delegation' plugin installed)
     const delegationPlugin = PlugIn.find('com.KaitlinSalzke.Delegation')
     if (delegationPlugin !== null) {
       delegationPlugin.library('delegationLib').noteFollowUp(task)
     }
+  }
 
-    // remove unwanted tags
+  customCompleteLib.removeUnwantedTags = task => {
+    const config = PlugIn.find('com.KaitlinSalzke.customComplete').library(
+      'customCompleteConfig'
+    )
     task.removeTags(config.tagsToRemove())
+  }
+
+  customCompleteLib.promptIfStalled = task => {
+    const functionLibrary = PlugIn.find('com.KaitlinSalzke.functionLibrary').library(
+      'functionLibrary'
+    )
 
     // if no remaining tasks in project
     if (

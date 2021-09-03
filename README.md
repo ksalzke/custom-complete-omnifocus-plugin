@@ -24,19 +24,32 @@ This plug-in contains the following action:
 
 ## Custom Complete
 
-This action runs the `customComplete` function (detailed below) on one selected task.
+This action runs the `customComplete` function on one selected task or project, using all of the other functions in the `customCompleteLib` (detailed below).
 
 # Functions
 
-This plugin contains the following function within the `customCompleteLib` library:
+This plugin contains the following functions within the `customCompleteLib` library:
 
-## customComplete
+## customComplete (task, [array of functions]) 
 
-This function takes a single task object as input. It then:
+Runs each function specified in the array (with the task as the only parameter).
 
-1. Marks the task as completed.
-2. If my [Dependency OmniFocus Plugin](https://github.com/ksalzke/dependency-omnifocus-plugin) is installed, runs the `checkDependantsForTaskAndAncestors` function on the task to check whether any dependent tasks should become available.
-3. If my [Delegation OmniFocus Plugin](https://github.com/ksalzke/delegation-omnifocus-plugin) is installed, runs the `noteFollowUp` action. If the task being completed is a 'follow up' task, a note is added to the original task indicating that the task has been followed up at the current time and date.
-4. Removes any unwanted tags (specified in `customCompleteConfig.js`) from the task. (This is predominantly intended for repeating tasks where certain tags are intended to be applied to the current instance only.)
-5. If there are no remaining tasks in the project (and user is not in the Projects Perspective), and the project has not been completed automatically, prompts the user to confirm whether they would like to review the project or mark it complete.
-6. Runs any other functions desired, with the selected task as the parameter. These functions can be specified as an array in the `customCompleteConfig.js` file. (For example, I have additional functions to create follow-up tasks that are specific to my set-up.)
+## completeTask (task)
+
+This marks the task as completed.
+
+## checkDependendants (task)
+
+If my [Dependency OmniFocus Plugin](https://github.com/ksalzke/dependency-omnifocus-plugin) is installed, this runs the `checkDependantsForTaskAndAncestors` function on the task to check whether any dependent tasks should become available.
+
+## noteFollowUp (task)
+
+If my [Delegation OmniFocus Plugin](https://github.com/ksalzke/delegation-omnifocus-plugin) is installed, runs the `noteFollowUp` action. If the task being completed is a 'follow up' task, a note is added to the original task indicating that the task has been followed up at the current time and date.
+
+## removeUnwantedTags (task)
+
+Removes any unwanted tags (specified in `customCompleteConfig.js`) from the task. (This is predominantly intended for repeating tasks where certain tags are intended to be applied to the current instance only.)
+
+## promptIfStalled (task)
+
+If there are no remaining tasks in the project (and user is not in the Projects Perspective), and the project has not been completed automatically, prompts the user to confirm whether they would like to review the project or mark it complete.
