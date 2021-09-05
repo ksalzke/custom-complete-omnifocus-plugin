@@ -44,7 +44,7 @@
       functionLibrary.isStalled(task.containingProject)
     ) {
       const alert = new Alert(
-        'Project Stalled',
+        `Project Stalled: ${task.containingProject.name}`,
         'There are no further actions in this project. Do you want to review it now?'
       )
       alert.addOption('Yes')
