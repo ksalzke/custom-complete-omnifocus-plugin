@@ -6,13 +6,11 @@
 
   customCompleteLib.completeTask = task => task.markComplete()
 
-  customCompleteLib.checkDependants = task => {
-    // run 'complete prerequisite' action to check task and ancestors (if 'dependency' plugin installed)
+  customCompleteLib.checkDependants = async task => {
+    // update dependencies (if 'dependency' plugin installed)
     const dependencyPlugin = PlugIn.find('com.KaitlinSalzke.DependencyForOmniFocus')
     if (dependencyPlugin !== null) {
-      dependencyPlugin
-        .library('dependencyLibrary')
-        .checkDependantsForTaskAndAncestors(task)
+      await dependencyPlugin.library('dependencyLibrary').updateDependencies()
     }
   }
 
