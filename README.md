@@ -6,17 +6,17 @@ _Please note that all scripts on my GitHub account (or shared elsewhere) are wor
 
 ## Known issues 
 
-None so far! 🤞
+Refer to ['issues'](https://github.com/ksalzke/custom-complete-omnifocus-plugin/issues) for known issues and planned changes/enhancements.
 
 # Installation & Set-Up
 
 **Important note: for this plug-in bundle to work correctly, my [Function Library for OmniFocus](https://github.com/ksalzke/function-library-for-omnifocus) is also required and needs to be added to the plug-in folder separately.**
 
-1. Click on the green `Clone or download` button above to download a `.zip` file of all the files in this GitHub repository.
+
+1. Download the [latest release](https://github.com/ksalzke/move-to-action-group-omnifocus-plugin/releases/latest).
 2. Unzip the downloaded file.
-3. Open the configuration file located at `Resources/customCompleteConfig.js` and make any changes needed to reflect your OmniFocus set-up. Further explanations of the options are included within that file as comments.
-4. Rename the entire folder to anything you like, with the extension `.omnifocusjs`
-5. Move the resulting file to your OmniFocus plug-in library folder.
+3. Open the configuration file located at `Resources/customCompleteConfig.js` (you can navigate to this by right clicking on the .omnifocusjs file and selecting 'Show Package Contents' and make any changes needed to reflect your OmniFocus set-up. Further explanations of the options are included within that file as comments.
+4. Move the `.omnifocusjs` file to your OmniFocus plug-in library folder (or open it to install).
 
 # Actions
 
