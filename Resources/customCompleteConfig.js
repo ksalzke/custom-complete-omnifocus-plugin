@@ -5,7 +5,7 @@
   customCompleteConfig.tagsToRemove = () => {
     // tags to be removed when a task is completed
     // THIS SHOULD BE AN ARRAY OF TAG OBJECTS
-    return [tagsMatching('Today')[0], tagsMatching('Due Today')[0]]
+    return [tagsMatching('Due Today')[0]]
   }
 
   return customCompleteConfig
