@@ -46,21 +46,23 @@
       task.containingProject.status !== Project.Status.Done &&
       functionLibrary.isStalled(task.containingProject)
     ) {
-      const alert = new Alert(
-        `Project Stalled: ${task.containingProject.name}`,
-        'There are no further actions in this project. Do you want to review it now?'
-      )
-      alert.addOption('Yes')
-      alert.addOption('Mark Complete')
-      alert.addOption('No')
-      await alert.show((result) => {
-        if (result === 0) {
+      const form = new Form()
+
+      form.addField(new Form.Field.Option('action', 'Do you want to review it now?', ['Yes', 'Mark complete', 'No'], null, 'Yes'))
+
+      await form.show(`Project Stalled: ${task.containingProject.name}\nThere are no further actions in this project.`, 'OK')
+
+      switch (form.values.action) {
+        case 'Yes':
           const urlStr = 'omnifocus:///task/' + task.containingProject.id.primaryKey
-          URL.fromString(urlStr).call(() => {})
-        } else if (result === 1) {
+          URL.fromString(urlStr).open()
+          break
+        case 'Mark complete':
           task.containingProject.task.markComplete()
-        }
-      })
+          break
+        default:
+          break
+      }
     }
   }
 
