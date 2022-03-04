@@ -1,16 +1,9 @@
 /* global PlugIn */
 (() => {
-  const action = new PlugIn.Action(function (selection, sender) {
+  const action = new PlugIn.Action(async function (selection, sender) {
     const task = selection.tasks[0] || selection.projects[0].task
 
-    const lib = this.customCompleteLib
-
-    lib.customComplete(task,
-      [lib.completeTask,
-        lib.checkDependants,
-        lib.noteFollowUp,
-        lib.removeUnwantedTags,
-        lib.promptIfStalled])
+    const lib = await this.customCompleteLib.onComplete(task)
   })
 
   action.validate = function (selection, sender) {

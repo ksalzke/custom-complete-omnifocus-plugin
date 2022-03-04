@@ -2,9 +2,14 @@
 (() => {
   const customCompleteLib = new PlugIn.Library(new Version('1.0'))
 
-  customCompleteLib.customComplete = (task, functions) => functions.forEach(async func => await func(task))
-
-  customCompleteLib.completeTask = task => task.markComplete()
+  customCompleteLib.onComplete = async (task) => {
+    const lib = customCompleteLib
+    task.markComplete()
+    await lib.checkDependants(task)
+    lib.noteFollowUp(task)
+    lib.removeUnwantedTags(task)
+    await lib.promptIfStalled(task)
+  }
 
   customCompleteLib.checkDependants = async task => {
     // update dependencies (if 'dependency' plugin installed)
