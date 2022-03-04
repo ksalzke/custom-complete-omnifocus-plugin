@@ -2,6 +2,28 @@
 (() => {
   const customCompleteLib = new PlugIn.Library(new Version('1.0'))
 
+  customCompleteLib.loadSyncedPrefs = () => {
+    const syncedPrefsPlugin = PlugIn.find('com.KaitlinSalzke.SyncedPrefLibrary')
+
+    if (syncedPrefsPlugin !== null) {
+      const SyncedPref = syncedPrefsPlugin.library('syncedPrefLibrary').SyncedPref
+      return new SyncedPref('com.KaitlinSalzke.customComplete')
+    } else {
+      const alert = new Alert(
+        'Synced Preferences Library Required',
+        'For the Custom Complete plug-in to work correctly, the \'Synced Preferences for OmniFocus\' plug-in (https://github.com/ksalzke/synced-preferences-for-omnifocus) is also required and needs to be added to the plug-in folder separately. Either you do not currently have this plugin installed, or it is not installed correctly.'
+      )
+      alert.show()
+    }
+  }
+
+  customCompleteLib.tagsToRemove = () => {
+    const preferences = customCompleteLib.loadSyncedPrefs()
+    const tagsToRemoveIDs = preferences.read('tagsToRemoveIDs') || []
+
+    return tagsToRemoveIDs.map(id => Tag.byIdentifier(id)).filter(tag => tag !== null)
+  }
+
   customCompleteLib.onComplete = async (task) => {
     const lib = customCompleteLib
     task.markComplete()
@@ -28,10 +50,8 @@
   }
 
   customCompleteLib.removeUnwantedTags = task => {
-    const config = PlugIn.find('com.KaitlinSalzke.customComplete').library(
-      'customCompleteConfig'
-    )
-    task.removeTags(config.tagsToRemove())
+    const tagsToRemove = customCompleteLib.tagsToRemove()
+    task.removeTags(tagsToRemove)
   }
 
   customCompleteLib.promptIfStalled = async task => {
