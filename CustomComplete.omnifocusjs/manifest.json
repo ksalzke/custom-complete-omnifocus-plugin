@@ -5,17 +5,10 @@
   "description": "A custom complete action for OmniFocus",
   "version": "2.1.0",
   "actions": [
-    {
-      "identifier": "customComplete",
-      "image": "checkmark.diamond.fill"
-    }
+    { "identifier": "customComplete", "image": "checkmark.diamond.fill" },
+    { "identifier": "preferences", "image": "gearshape.2" }
   ],
   "libraries": [
-    {
-      "identifier": "customCompleteConfig"
-    },
-    {
-      "identifier": "customCompleteLib"
-    }
+    { "identifier": "customCompleteLib"}
   ]
 }
