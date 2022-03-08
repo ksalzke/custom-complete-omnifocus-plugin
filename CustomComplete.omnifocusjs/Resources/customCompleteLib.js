@@ -67,35 +67,42 @@
   }
 
   customCompleteLib.promptIfStalled = async task => {
-    const functionLibrary = PlugIn.find('com.KaitlinSalzke.functionLibrary').library(
-      'functionLibrary'
-    )
 
-    // if no remaining tasks in project
-    if (
-      document.windows[0].perspective !== Perspective.BuiltIn.Projects &&
-      task.containingProject !== null &&
-      task.containingProject.status !== Project.Status.Done &&
-      functionLibrary.isStalled(task.containingProject)
-    ) {
-      const form = new Form()
+    // don't show prompt if already in Projects perspective
+    if (document.windows[0].perspective === Perspective.BuiltIn.Projects) return
 
-      form.addField(new Form.Field.Option('action', 'Do you want to review it now?', ['Yes', 'Mark complete', 'No'], null, 'Yes'))
+    // don't show prompt if task has no parent
+    if (task.parent === null) return
 
-      await form.show(`Project Stalled: ${task.containingProject.name}\nThere are no further actions in this project.`, 'OK')
+    // don't show prompt if there are remaining tasks
+    const remainingChildren = task.parent.children.filter(child => child.taskStatus !== Task.Status.Completed && child.taskStatus !== Task.Status.Dropped)
+    if (remainingChildren.length > 0) return
 
-      switch (form.values.action) {
-        case 'Yes':
-          const urlStr = 'omnifocus:///task/' + task.containingProject.id.primaryKey
-          URL.fromString(urlStr).open()
-          break
-        case 'Mark complete':
-          task.containingProject.task.markComplete()
-          break
-        default:
-          break
-      }
+    // if parent already completed, check its parent
+    if (task.parent.taskStatus === Task.Status.Completed) {
+      await customCompleteLib.promptIfStalled(task.parent)
+      return // don't proceed - no prompt required for this task (it's already completed)
     }
+
+    // if parent is stalled, show prompt
+    const form = new Form()
+
+    form.addField(new Form.Field.Option('action', 'Do you want to review it now?', ['Yes', 'Mark complete', 'No'], null, 'Yes'))
+
+    await form.show(`Stalled: ${task.parent.name}\nThere are no further actions.`, 'OK')
+
+    switch (form.values.action) {
+      case 'Yes':
+        const urlStr = 'omnifocus:///task/' + task.parent.id.primaryKey
+        URL.fromString(urlStr).open()
+        break
+      case 'Mark complete':
+        task.parent.markComplete()
+        await customCompleteLib.promptIfStalled(task.parent) // after marking complete, check if parent's parent is stalled
+        break
+      default:
+        break
+      }
   }
 
   return customCompleteLib
