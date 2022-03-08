@@ -3,12 +3,20 @@
   "identifier": "com.KaitlinSalzke.customComplete",
   "author": "Kaitlin Salzke",
   "description": "A custom complete action for OmniFocus",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "actions": [
-    { "identifier": "customComplete", "image": "checkmark.diamond.fill" },
-    { "identifier": "preferences", "image": "gearshape.2" }
+    {
+      "identifier": "customComplete",
+      "image": "checkmark.diamond.fill"
+    },
+    {
+      "identifier": "preferences",
+      "image": "gearshape.2"
+    }
   ],
   "libraries": [
-    { "identifier": "customCompleteLib"}
+    {
+      "identifier": "customCompleteLib"
+    }
   ]
 }
