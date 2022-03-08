@@ -30,6 +30,7 @@
     await lib.checkDependants(task)
     lib.noteFollowUp(task)
     lib.removeUnwantedTags(task)
+    lib.removeDueSoonTag(task)
     await lib.promptIfStalled(task)
   }
 
@@ -52,6 +53,11 @@
   customCompleteLib.removeUnwantedTags = task => {
     const tagsToRemove = customCompleteLib.tagsToRemove()
     task.removeTags(tagsToRemove)
+  }
+
+  customCompleteLib.removeDueSoonTag = task => {
+    const plugin = PlugIn.find('com.KaitlinSalzke.TagTasksDueToday')
+    if (plugin !== null) plugin.library('tagDueTasksLib').onComplete(task)
   }
 
   customCompleteLib.promptIfStalled = async task => {
