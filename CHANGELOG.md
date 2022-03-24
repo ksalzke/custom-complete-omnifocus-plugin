@@ -1,3 +1,12 @@
+## [3.0.1](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.0.0...v3.0.1) (2022-03-24)
+
+
+### Bug Fixes
+
+* :bug: don't show 'stalled' prompt when the last action in a SAL is completed ([3d97f54](https://github.com/ksalzke/custom-complete-omnifocus-plugin/commit/3d97f54df55ae0cb565e262ecbe178e1145957ae))
+
+
+
 # [3.0.0](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v2.1.0...v3.0.0) (2022-03-08)
 
 
