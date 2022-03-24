@@ -74,6 +74,9 @@
     // don't show prompt if task has no parent
     if (task.parent === null) return
 
+    // don't show prompt if parent is SAL
+    if (task.parent.project !== null && task.parent.project.containsSingletonActions) return
+
     // don't show prompt if there are remaining tasks
     const remainingChildren = task.parent.children.filter(child => child.taskStatus !== Task.Status.Completed && child.taskStatus !== Task.Status.Dropped)
     if (remainingChildren.length > 0) return
