@@ -16,7 +16,7 @@ Refer to ['issues'](https://github.com/ksalzke/custom-complete-omnifocus-plugin/
 
 ## Installation
 
-1. Download the [latest release](https://github.com/ksalzke/move-to-action-group-omnifocus-plugin/releases/latest).
+1. Download the [latest release](https://github.com/ksalzke/custom-complete-omnifocus-plugin/releases/latest).
 2. Unzip the downloaded file.
 3. Move the `.omnifocusjs` file to your OmniFocus plug-in library folder (or open it to install).
 4. If desired, add one or more tags to be removed from a task after completion using the 'Preferences' action.
