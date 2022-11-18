@@ -24,8 +24,17 @@
     return tagsToRemoveIDs.map(id => Tag.byIdentifier(id)).filter(tag => tag !== null)
   }
 
+  customCompleteLib.selectNextNodePref = () => {
+    const preferences = customCompleteLib.loadSyncedPrefs()
+    const selectNextNodePref = preferences.read('selectNextNode') || false
+    console.log(selectNextNodePref ? 'true' : 'false')
+    return selectNextNodePref
+  }
+
   customCompleteLib.onComplete = async (task) => {
+
     const lib = customCompleteLib
+    await lib.selectNextNode(task)
     task.markComplete()
     await lib.checkDependants(task)
     lib.noteFollowUp(task)
@@ -33,6 +42,28 @@
     lib.removeDueSoonTag(task)
     await lib.checkWorkOnTask(task)
     await lib.promptIfStalled(task)
+
+  }
+
+  customCompleteLib.selectNextNode = async (task) => {
+    // don't continue if preference is no
+    const selectNextNodePref = customCompleteLib.selectNextNodePref()
+    if (selectNextNodePref === false) return
+
+    const contentTree = document.windows[0].content
+
+    // only continue if single node selected
+    console.log(contentTree.selectedNodes.length)
+    if (contentTree.selectedNodes.length !== 1) return 
+
+    // get currently selected note
+    const selectedNode = contentTree.nodeForObject(task)
+
+    // don't continue if node is last task
+    if (selectedNode.index + 1 === selectedNode.parent.childCount) return
+
+    // select next node
+    contentTree.select([selectedNode.parent.childAtIndex(selectedNode.index + 1)], false)
   }
 
   customCompleteLib.checkDependants = async task => {

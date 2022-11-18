@@ -31,7 +31,9 @@ This action runs the `onComplete` function on one selected task or project, usin
 
 ## Preferences
 
-This action allows you to configure one or more tags that should be removed from tasks after they have been completed.
+This action allows you to:
+* select whether the next task in a perspective should automatically be selected when 'custom complete' is run (this will only apply when there is a single task selected)
+* configure one or more tags that should be removed from tasks after they have been completed.
 
 # Functions
 
@@ -47,13 +49,21 @@ If the user does not have the plug-in installed correctly, they are alerted.
 
 Returns an array of tags to be removed from tasks when they are completed, as configured in the preferences.
 
+## `selectNextNodePref () : Boolean`
+
+Returns 'true' or 'false' depending on whether the 'select next task' option is checked in the preferences.
+
 ## `onComplete (task: Task)`
 
-Marks the given task as complete, and runs each of the functions below (with the task as the only parameter).
+**Asynchronous.** Marks the given task as complete, and runs each of the functions below (with the task as the only parameter).
+
+## `selectNextNode (task: Task)` 
+
+**Asynchronous.** Selects the next 'node' (task) in the tree, if the preference is set, and only one task is selected.
 
 ## `checkDependendants (task: Task)`
 
-If my [Dependency OmniFocus Plug-In](https://github.com/ksalzke/dependency-omnifocus-plugin) is installed, this runs the `checkDependantsForTaskAndAncestors` function on the task to check whether any dependent tasks should become available.
+**Asynchronous.** If my [Dependency OmniFocus Plug-In](https://github.com/ksalzke/dependency-omnifocus-plugin) is installed, this runs the `checkDependantsForTaskAndAncestors` function on the task to check whether any dependent tasks should become available.
 
 ## `noteFollowUp (task: Task)`
 
@@ -69,8 +79,8 @@ If my ['Tag Tasks Due Today' Plug-In](https://github.com/ksalzke/tag-tasks-due-t
 
 ## `checkWorkOnTask (task: Task)`
 
-If my ['Work On...' Plug-In](https://github.com/ksalzke/work-on-omnifocus-plug-in) is installed, runs the 'onComplete' action for 'work on...' tasks, prompting the user for whether the base task is completed, should be deferred, etc.
+**Asynchronous.** If my ['Work On...' Plug-In](https://github.com/ksalzke/work-on-omnifocus-plug-in) is installed, runs the 'onComplete' action for 'work on...' tasks, prompting the user for whether the base task is completed, should be deferred, etc.
 
 ## `promptIfStalled (task: Task)`
 
-If the user is not in the Projects perspective, and an action group or project is stalled as a result of completing the task, prompts the user to confirm whether they would like to review the stalled group/project, or mark it complete.
+**Asynchronous.** If the user is not in the Projects perspective, and an action group or project is stalled as a result of completing the task, prompts the user to confirm whether they would like to review the stalled group/project, or mark it complete.
