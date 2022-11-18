@@ -1,3 +1,12 @@
+# [3.1.0](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.0.1...v3.1.0) (2022-11-18)
+
+
+### Features
+
+* :sparkles: add option to automatically select next node ([dede01d](https://github.com/ksalzke/custom-complete-omnifocus-plugin/commit/dede01d6eaa10f5e11c4bd8a945b3e5245e89858))
+
+
+
 ## [3.0.1](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.0.0...v3.0.1) (2022-03-24)
 
 
