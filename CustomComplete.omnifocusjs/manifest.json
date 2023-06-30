@@ -3,7 +3,7 @@
   "identifier": "com.KaitlinSalzke.customComplete",
   "author": "Kaitlin Salzke",
   "description": "A custom complete action for OmniFocus",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "actions": [
     {
       "identifier": "customComplete",

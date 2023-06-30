@@ -1,3 +1,12 @@
+## [3.1.1](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.1.0...v3.1.1) (2023-06-30)
+
+
+### Bug Fixes
+
+* :bug: remove absolute scheduled notifications for repeating tasks (closes [#10](https://github.com/ksalzke/custom-complete-omnifocus-plugin/issues/10)) ([e2fc97a](https://github.com/ksalzke/custom-complete-omnifocus-plugin/commit/e2fc97ad36d991209f1a7f59fad0d3b060b06446))
+
+
+
 # [3.1.0](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.0.1...v3.1.0) (2022-11-18)
 
 
