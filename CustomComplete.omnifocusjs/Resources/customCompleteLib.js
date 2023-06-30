@@ -36,6 +36,7 @@
     const lib = customCompleteLib
     await lib.selectNextNode(task)
     task.markComplete()
+    await lib.unschedule(task)
     await lib.checkDependants(task)
     lib.noteFollowUp(task)
     lib.removeUnwantedTags(task)
@@ -64,6 +65,13 @@
 
     // select next node
     contentTree.select([selectedNode.parent.childAtIndex(selectedNode.index + 1)], false)
+  }
+
+  customCompleteLib.unschedule = async (task) => {
+    // don't continue if not repeating task
+    if (task.repetitionRule === null) return
+    const absoluteNotifications = task.notifications.filter(notification => notification.kind === Task.Notification.Kind.Absolute)
+    for (notification of absoluteNotifications) task.removeNotification(notification)
   }
 
   customCompleteLib.checkDependants = async task => {

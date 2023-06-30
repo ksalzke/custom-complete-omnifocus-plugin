@@ -53,6 +53,10 @@ Returns an array of tags to be removed from tasks when they are completed, as co
 
 Returns 'true' or 'false' depending on whether the 'select next task' option is checked in the preferences.
 
+## `unschedule (task: Task)`
+
+If the task is a repeating task, removes any 'absolute' notifications (i.e. those that are not set relative to the defer or due date)
+
 ## `onComplete (task: Task)`
 
 **Asynchronous.** Marks the given task as complete, and runs each of the functions below (with the task as the only parameter).
