@@ -35,12 +35,15 @@
 
     const lib = customCompleteLib
     await lib.selectNextNode(task)
-    task.markComplete()
+    const completedTask = task.markComplete()
     await lib.unschedule(task)
+    await lib.unschedule(completedTask)
     await lib.checkDependants(task)
     lib.noteFollowUp(task)
     lib.removeUnwantedTags(task)
+    lib.removeUnwantedTags(completedTask)
     lib.removeDueSoonTag(task)
+    lib.removeDueSoonTag(completedTask)
     await lib.checkWorkOnTask(task)
     await lib.promptIfStalled(task)
 
@@ -55,7 +58,7 @@
 
     // only continue if single node selected
     console.log(contentTree.selectedNodes.length)
-    if (contentTree.selectedNodes.length !== 1) return 
+    if (contentTree.selectedNodes.length !== 1) return
 
     // get currently selected note
     const selectedNode = contentTree.nodeForObject(task)
@@ -83,7 +86,7 @@
   }
 
   customCompleteLib.noteFollowUp = task => {
-  // note details of follow-up if this is a follow up task (if 'delegation' plugin installed)
+    // note details of follow-up if this is a follow up task (if 'delegation' plugin installed)
     const delegationPlugin = PlugIn.find('com.KaitlinSalzke.Delegation')
     if (delegationPlugin !== null) {
       delegationPlugin.library('delegationLib').noteFollowUp(task)
@@ -144,7 +147,7 @@
         break
       default:
         break
-      }
+    }
   }
 
   return customCompleteLib
