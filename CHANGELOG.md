@@ -1,3 +1,12 @@
+## [3.1.2](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.1.1...v3.1.2) (2024-01-04)
+
+
+### Bug Fixes
+
+* :bug: remove tags and unschedule completed task where task is repeating ([bf7af41](https://github.com/ksalzke/custom-complete-omnifocus-plugin/commit/bf7af41d12e78b2df73a248adbbd9791d01b8898))
+
+
+
 ## [3.1.1](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.1.0...v3.1.1) (2023-06-30)
 
 
