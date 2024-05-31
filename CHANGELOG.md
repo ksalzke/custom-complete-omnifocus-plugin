@@ -1,3 +1,12 @@
+# [3.2.0](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.1.2...v3.2.0) (2024-05-31)
+
+
+### Features
+
+* :sparkles: add option to open project in new window if reviewing when stalled ([b48ff18](https://github.com/ksalzke/custom-complete-omnifocus-plugin/commit/b48ff180f3cd64729579e2ecfe493dbd362ca31a))
+
+
+
 ## [3.1.2](https://github.com/ksalzke/custom-complete-omnifocus-plugin/compare/v3.1.1...v3.1.2) (2024-01-04)
 
 
