@@ -31,8 +31,13 @@
     return selectNextNodePref
   }
 
-  customCompleteLib.onComplete = async (task) => {
+  customCompleteLib.openInNewWindowPref = () => {
+    const preferences = customCompleteLib.loadSyncedPrefs()
+    const openInNewWindowPref = preferences.read('openInNewWindowPref') || false
+    return openInNewWindowPref
+  }
 
+  customCompleteLib.onComplete = async (task) => {
     const lib = customCompleteLib
     await lib.selectNextNode(task)
     const completedTask = task.markComplete()
@@ -46,7 +51,6 @@
     lib.removeDueSoonTag(completedTask)
     await lib.checkWorkOnTask(task)
     await lib.promptIfStalled(task)
-
   }
 
   customCompleteLib.selectNextNode = async (task) => {
@@ -138,6 +142,7 @@
 
     switch (form.values.action) {
       case 'Yes':
+        if (customCompleteLib.openInNewWindowPref()) await document.newWindow()
         const urlStr = 'omnifocus:///task/' + task.parent.id.primaryKey
         URL.fromString(urlStr).open()
         break

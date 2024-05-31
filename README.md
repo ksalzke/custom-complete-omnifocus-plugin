@@ -33,6 +33,7 @@ This action runs the `onComplete` function on one selected task or project, usin
 
 This action allows you to:
 * select whether the next task in a perspective should automatically be selected when 'custom complete' is run (this will only apply when there is a single task selected)
+* select whether the project will be shown in a new window, when the last task in a project or action group is completed and the user chooses to 'review' the project
 * configure one or more tags that should be removed from tasks after they have been completed.
 
 # Functions
@@ -52,6 +53,10 @@ Returns an array of tags to be removed from tasks when they are completed, as co
 ## `selectNextNodePref () : Boolean`
 
 Returns 'true' or 'false' depending on whether the 'select next task' option is checked in the preferences.
+
+## `openInNewWindowPref () : Boolean`
+
+Returns 'true' or 'false' depending on whether the 'open in new window' option is checked in the preferences.
 
 ## `unschedule (task: Task)`
 
